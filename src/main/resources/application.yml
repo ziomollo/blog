@@ -1,0 +1,37 @@
+# ===============================
+# = Database configuration
+# ===============================
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/userdatabase
+    username: root
+    password: root
+ # data:
+   # mongodb:
+   #   host: localhost
+    #  port: 27017
+    #  database: PostsDB
+# ===============================
+# = JPA configurations
+# ===============================
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+      #ddl-auto: update
+    database-platform: MYSQL
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+
+# ===============================
+# = Logging configurations
+# ===============================
+logging:
+  level:
+    root: WARN
+    com.example.demo: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+# ===============================
+# = Thymeleaf
+# ===============================

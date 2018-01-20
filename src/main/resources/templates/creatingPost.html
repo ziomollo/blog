@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link th:href="@{https://cdn.quilljs.com/1.3.4/quill.snow.css}" rel="stylesheet"/>
+
+    <title>Adding Post</title>
+</head>
+<body>
+<h1>Dodawanie posta</h1>
+<form th:action="@{/post}" th:object="${post}" method="post" th:onsubmit="'bebin()'">
+
+    <div class="form-group">
+        <label for="title" class="control-label">Title</label>
+        <input id="title" class="form-control" th:field="*{title}"/>
+    </div>
+
+    <div class="form-group">
+        <label for="body" class="control-label">Body</label>
+        <input id="body" name="body" class="form-control" th:field="*{body}" type="hidden"/>
+        <div id="editor-container"></div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Add!</button>
+    </div>
+
+
+</form>
+
+<script th:src="@{https://cdn.quilljs.com/1.3.4/quill.js}"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js}"></script>
+<script>
+
+    var toolbarOptions = [
+        ['bold','italic','underline','strike']
+    ];
+
+    var quill = new Quill('#editor-container', {
+        modules: {
+            toolbar: [
+                ['bold', 'italic'],
+                ['link', 'blockquote', 'code-block', 'image'],
+                [{ list: 'ordered' }, { list: 'bullet' }]
+            ]
+        },
+        placeholder: 'Compose an epic...',
+        theme: 'snow'
+    });
+
+    function bebin()
+    {
+        //var x = document.getElementById("editor-container");
+
+
+        // Populate hidden form on submit
+        var about = document.querySelector('input[name=body]');
+        about.value = JSON.stringify(quill.getContents());
+
+        console.log(about.value);
+        return false;
+
+    }
+</script>
+</body>
+</html>
