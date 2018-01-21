@@ -4,7 +4,6 @@ import com.example.demo.model.Post;
 import com.example.demo.repository.PostRepository;
 import com.example.demo.web.dto.PostDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +14,7 @@ import java.util.List;
 
 @Service
 
-public class PostServiceImpl implements PostService  {
+public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepository postRepository;
@@ -30,7 +29,7 @@ public class PostServiceImpl implements PostService  {
 
     @Override
     public List<Post> findLatest5() {
-        return this.postRepository.findLatest5Posts(new PageRequest(0,5));
+        return this.postRepository.findLatest5Posts(new PageRequest(0, 5));
     }
 
     @Override
@@ -43,22 +42,22 @@ public class PostServiceImpl implements PostService  {
         return this.postRepository.save(preparePost(postdto));
     }
 
-    private Post preparePost(PostDto postDto){
-        Post post = new Post();
-        post.setTitle(postDto.getTitle());
-        post.setBody(postDto.getBody());
-        post.setDate(new Date());
-        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        post.setAuthor(userService.findByEmail(userDetails.getUsername()));
+    private Post preparePost(PostDto postDto) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Post post = new Post(postDto.getTitle()
+                , postDto.getBody()
+                , userService.findByEmail(userDetails.getUsername())
+                , new Date());
+
 
         return post;
     }
 
-    public Post findByTitle(String title){
+    public Post findByTitle(String title) {
         return this.postRepository.findByTitle(title);
     }
 
-    public Post create(Post post){
+    public Post create(Post post) {
         return this.postRepository.save(post);
     }
 

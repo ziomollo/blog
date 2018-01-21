@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +33,10 @@ public class UserRegistrationIT {
                 post("/registration").
                         with(csrf())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("firstName", "Janek")
-                .param("lastName", "Janek")
-                .param("email", "Janek@gmail.com")
-                .param("confirmEmail","Janek@gmail.com")
+                .param("firstName", "TestUser")
+                .param("lastName", "TestUser")
+                .param("email", "TestUser@mail.com")
+                .param("confirmEmail","TestUser@mail.com")
                 .param("password","password")
                 .param("confirmPassword","password")
                 .param("terms","on")
@@ -50,10 +52,10 @@ public class UserRegistrationIT {
                 post("/registration").
                         with(csrf())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("firstName", "Janek")
-                        .param("lastName", "Janek")
-                        .param("email", "NOWYJanek@gmail.com")
-                        .param("confirmEmail","NOWYJanek@gmail.com")
+                        .param("firstName", "TestUser")
+                        .param("lastName", "TestUser")
+                        .param("email", "NewTestUser@mail.com")
+                        .param("confirmEmail","NewTestUser@mail.com")
                         .param("password","password")
                         .param("confirmPassword","invalid")
                         .param("terms","on")
@@ -69,10 +71,10 @@ public class UserRegistrationIT {
                 post("/registration").
                         with(csrf())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("firstName", "Janek")
-                        .param("lastName", "Janek")
-                        .param("email", "NOWYJanek@gmail.com")
-                        .param("confirmEmail","INNYJanek@gmail.com")
+                        .param("firstName", "TestUser")
+                        .param("lastName", "TestUser")
+                        .param("email", "NewTestUser@mail.com")
+                        .param("confirmEmail","DiffTestUser@mail.com")
                         .param("password","password")
                         .param("confirmPassword","password")
                         .param("terms","on")
@@ -88,10 +90,10 @@ public class UserRegistrationIT {
                 post("/registration").
                         with(csrf())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("firstName", "Janek")
-                        .param("lastName", "Janek")
-                        .param("email", "InnyJanek@gmail.com")
-                        .param("confirmEmail","InnyJanek@gmail.com")
+                        .param("firstName", "TestUser")
+                        .param("lastName", "TestUser")
+                        .param("email", "DiffTestUser@mail.com")
+                        .param("confirmEmail","DiffTestUser@mail.com")
                         .param("password","password")
                         .param("confirmPassword","password")
                         .param("terms","on")

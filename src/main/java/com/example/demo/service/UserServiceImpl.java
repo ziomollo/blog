@@ -41,12 +41,16 @@ public class UserServiceImpl implements UserService {
     }
 
     public User save(UserRegistrationDto registrationDto){
-        User user = new User();
-        user.setFirstName(registrationDto.getFirstName());
-        user.setEmail(registrationDto.getEmail());
-        user.setLastName(registrationDto.getLastName());
-        user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
-        user.setRole(Arrays.asList(new Role("ROLE_USER")));
+        return userRepository.save(User.newBuilder()
+                .firstName(registrationDto.getFirstName())
+                .lastName(registrationDto.getLastName())
+                .email(registrationDto.getEmail())
+                .password(passwordEncoder.encode(registrationDto.getPassword()))
+                .role(Arrays.asList(new Role("ROLE_USER")))
+                .build());
+    }
+
+    public User save(User user){
         return userRepository.save(user);
     }
 
