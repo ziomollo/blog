@@ -49,7 +49,7 @@
                 [{ list: 'ordered' }, { list: 'bullet' }]
             ]
         },
-        placeholder: 'Compose an epic...',
+        placeholder: 'Wprowadz zawartosc posta...',
         theme: 'snow'
     });
 
@@ -60,9 +60,11 @@
 
         // Populate hidden form on submit
         var about = document.querySelector('input[name=body]');
-        about.value = JSON.stringify(quill.getContents());
-
-        console.log(about.value);
+       // about.value = JSON.stringify(quill.getContents());
+        var beban = quill.getContents();
+        var x = beban.ops[0]["insert"];
+        about.value = x;
+        //console.log(x);
         return false;
 
     }

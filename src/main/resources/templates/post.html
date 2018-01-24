@@ -9,21 +9,22 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
-    <title>Blog Janka</title>
+    <title th:text="${post.title}"></title>
 
-    <!-- Bootstrap Core CSS -->
+    <!-- Custom Fonts -->
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/background.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/background.css}"/>
 
     <!-- Theme CSS -->
     <link th:href="@{/css/clean-blog.min.css}" rel="stylesheet"/>
 
     <!-- Custom Fonts -->
-    <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
-    <!--<link th:href="@{https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic}"" rel='stylesheet' type='text/css'/>
-    <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800}" rel='stylesheet' type='text/css'/>-->
+    <link th:href="@{/static/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+
+
 
 </head>
+
 <body>
 
     <!-- Navigation -->
@@ -35,6 +36,7 @@
                     <span class="sr-only">Toggle navigation</span>
                     Menu <i class="fa fa-bars"></i>
                 </button>
+                <a class="navbar-brand" href="../static/index.html">Start Bootstrap</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -47,8 +49,8 @@
                         <a th:href="@{/post}">Create Post</a>
                     </li>
                     <li>
-                        <a th:if="${username == 'ANONIM'}" th:href="@{/login}">Log In</a>
-                        <a th:unless="${username == 'ANONIM'}" th:href="@{/logout}">Log Out</a>
+                        <a th:if="${username == 'ANONYMOUSUSER'}" th:href="@{/login}">Log In</a>
+                        <a th:unless="${username == 'ANONYMOUSUSER'}" th:href="@{/logout}">Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -59,46 +61,30 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" th:style="'background:url(' + @{/img/about-bg.jpg} + ');'">
+    <header class="intro-header" style="background-image: url('../static/img/post-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
-                        <h1>BLOG</h1>
-                        <hr class="small"/>
-                        <span class="subheading">Blog</span>
+                    <div class="post-heading">
+                        <h1>Man must explore, and this is exploration at its greatest</h1>
+                        <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
+                        <span class="meta">Posted by <a href="#" th:text="${post.author}"></a> on August 24, 2014</span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <tr th:each="post : ${postek}" >
-                    <div class="post-preview">
-                        <a th:href="@{/post/__${post.title}__}">
-                            <h2 class="post-title" th:text="${post.title}">
-
-                            </h2>
-                            <h3 class="post-subtitle" th:text="${post.body}">
-                            </h3>
-                        </a>
-                        <p class="post-meta">Posted by <strong th:text="${post.author.email}"></strong></p>
-                    </div>
-                </tr>
-
-                <!-- Pager -->
-                <ul class="pager">
-                    <li class="next">
-                        <a href="#">Older Posts &rarr;</a>
-                    </li>
-                </ul>
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p th:text="${post.body}"></p>
+                </div>
             </div>
         </div>
-    </div>
+    </article>
 
     <hr/>
 

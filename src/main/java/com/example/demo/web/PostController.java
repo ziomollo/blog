@@ -6,10 +6,7 @@ import com.example.demo.web.dto.PostDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -45,5 +42,13 @@ public class PostController {
         this.postService.create(post);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/{title}")
+    public String getPost(Model model, @PathVariable("title") String title){
+        Post existing = postService.findByTitle(title);
+        model.addAttribute("post",existing);
+
+        return "post";
     }
 }

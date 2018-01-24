@@ -3,6 +3,9 @@ package com.example.demo.service;
 import com.example.demo.model.Post;
 import com.example.demo.repository.PostRepository;
 import com.example.demo.web.dto.PostDto;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,13 +47,14 @@ public class PostServiceImpl implements PostService {
 
     private Post preparePost(PostDto postDto) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Post post = new Post(postDto.getTitle()
+
+       // JSONArray jsonArray = new JSONArray(postDto.getBody());
+
+
+        return new Post(postDto.getTitle()
                 , postDto.getBody()
                 , userService.findByEmail(userDetails.getUsername())
                 , new Date());
-
-
-        return post;
     }
 
     public Post findByTitle(String title) {
