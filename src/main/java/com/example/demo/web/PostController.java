@@ -47,6 +47,7 @@ public class PostController {
     @GetMapping("/{title}")
     public String getPost(Model model, @PathVariable("title") String title){
         Post existing = postService.findByTitle(title);
+       // existing.setPreview(existing.getBody().substring(0,Math.min(existing.getBody().length(),50)));
         model.addAttribute("post",existing);
 
         return "post";

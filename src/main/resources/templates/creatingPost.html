@@ -8,66 +8,127 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
     <link th:href="@{https://cdn.quilljs.com/1.3.4/quill.snow.css}" rel="stylesheet"/>
+    <!-- Theme CSS -->
+    <link th:href="@{/css/clean-blog.min.css}" rel="stylesheet"/>
+
+    <!-- Custom Fonts -->
+    <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
 
     <title>Adding Post</title>
 </head>
+
 <body>
-<h1>Dodawanie posta</h1>
-<form th:action="@{/post}" th:object="${post}" method="post" th:onsubmit="'bebin()'">
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+            </div>
 
-    <div class="form-group">
-        <label for="title" class="control-label">Title</label>
-        <input id="title" class="form-control" th:field="*{title}"/>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a th:href="@{/}">Home</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/post}">Create Post</a>
+                    </li>
+                    <li>
+                        <a th:if="${username == 'ANONIM'}" th:href="@{/login}">Log In</a>
+                        <a th:unless="${username == 'ANONIM'}" th:href="@{/logout}">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <header class="intro-header" th:style="'background:url(' + @{/img/about-bg.jpg} + ');'">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>BLOG</h1>
+                        <hr class="small"/>
+                        <span class="subheading">Adding post</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <form th:action="@{/post}" th:object="${post}" method="post" th:onsubmit="'bebin()'">
+
+                    <div class="form-group">
+                        <label for="title" class="control-label">Title</label>
+                        <input id="title" class="form-control" th:field="*{title}"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="body" class="control-label">Body</label>
+                        <input id="body" name="body" class="form-control" th:field="*{body}" type="hidden"/>
+                        <div id="editor-container"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Add!</button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="body" class="control-label">Body</label>
-        <input id="body" name="body" class="form-control" th:field="*{body}" type="hidden"/>
-        <div id="editor-container"></div>
-    </div>
+    <script th:src="@{https://cdn.quilljs.com/1.3.4/quill.js}"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <!-- Contact Form JavaScript -->
+    <script th:src="@{/js/jqBootstrapValidation.js}"></script>
+    <script th:src="@{/js/contact_me.js}"></script>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-success">Add!</button>
-    </div>
+    <!-- Theme JavaScript -->
+    <script th:src="@{/js/clean-blog.min.js}"></script>
+    <script>
 
+        var toolbarOptions = [
+            ['bold','italic','underline','strike']
+        ];
 
-</form>
+        var quill = new Quill('#editor-container', {
+            modules: {
+                toolbar: [
+                    /*['bold', 'italic'],
+                    ['link', 'blockquote', 'code-block', 'image'],
+                    [{ list: 'ordered' }, { list: 'bullet' }] */
+                ]
+            },
+            placeholder: 'Wprowadz zawartosc posta...',
+            theme: 'snow'
+        });
 
-<script th:src="@{https://cdn.quilljs.com/1.3.4/quill.js}"></script>
-<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js}"></script>
-<script>
-
-    var toolbarOptions = [
-        ['bold','italic','underline','strike']
-    ];
-
-    var quill = new Quill('#editor-container', {
-        modules: {
-            toolbar: [
-                ['bold', 'italic'],
-                ['link', 'blockquote', 'code-block', 'image'],
-                [{ list: 'ordered' }, { list: 'bullet' }]
-            ]
-        },
-        placeholder: 'Wprowadz zawartosc posta...',
-        theme: 'snow'
-    });
-
-    function bebin()
-    {
-        //var x = document.getElementById("editor-container");
+        function bebin()
+        {
+            //var x = document.getElementById("editor-container");
 
 
-        // Populate hidden form on submit
-        var about = document.querySelector('input[name=body]');
-       // about.value = JSON.stringify(quill.getContents());
-        var beban = quill.getContents();
-        var x = beban.ops[0]["insert"];
-        about.value = x;
-        //console.log(x);
-        return false;
+            // Populate hidden form on submit
+            var about = document.querySelector('input[name=body]');
+           // about.value = JSON.stringify(quill.getContents());
+            var beban = quill.getContents();
+            var x = beban.ops[0]["insert"];
+            about.value = x;
+            //console.log(x);
+            return false;
 
-    }
-</script>
+        }
+    </script>
 </body>
 </html>

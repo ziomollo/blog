@@ -54,7 +54,8 @@ public class PostServiceImpl implements PostService {
         return new Post(postDto.getTitle()
                 , postDto.getBody()
                 , userService.findByEmail(userDetails.getUsername())
-                , new Date());
+                , new Date(),
+                postDto.getBody().substring(0,Math.min(postDto.getBody().length(),40)));
     }
 
     public Post findByTitle(String title) {

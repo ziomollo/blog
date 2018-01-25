@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.stream.Collectors;
+
 @Controller
 public class MainController {
 
@@ -27,6 +29,7 @@ public class MainController {
             UserDetails userDetailsObj = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             model.addAttribute("username", userDetailsObj.getUsername());
         }
+
         model.addAttribute("postek", postService.findLatest5());
         return "index";
     }
@@ -37,7 +40,7 @@ public class MainController {
     }
 
     @PostMapping("/login")
-    public String loginSucc(Model model){return "index";}
+    public String loginSucc(Model model){return "redirect:/";}
 /*
     @GetMapping("/user")
     public String userIndex() {
